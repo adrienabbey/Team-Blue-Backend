@@ -24,6 +24,7 @@ public class CourseService {
 
     /**
      * Creates a new course
+     * 
      * @param dto transport object containing course details
      * @return newly created course
      */
@@ -35,47 +36,53 @@ public class CourseService {
 
     /**
      * Retrieves a specific course by its id
+     * 
      * @param id id of course to retrieve
      * @return specified course
      */
     public CourseDTO getCourse(Long id) {
         return repository.findById(id)
-            .map(course -> mapper.map(course, CourseDTO.class))
-            .orElseThrow(() -> new CourseNotFoundException(id));
+                .map(course -> mapper.map(course, CourseDTO.class))
+                .orElseThrow(() -> new CourseNotFoundException(id));
     }
 
     /**
      * Retrieves all courses
+     * 
      * @return list of available courses
      */
     public List<CourseDTO> getAllCourses() {
         return repository.findAll().stream()
-            .map(course -> mapper.map(course, CourseDTO.class))
-            .collect(Collectors.toList());
+                .map(course -> mapper.map(course, CourseDTO.class))
+                .collect(Collectors.toList());
     }
 
     /**
      * Updates a specific course
-     * @param id id of course to update
+     * 
+     * @param id  id of course to update
      * @param dto course details to save
-     * @return updated course or 400 response with error message if course cannot be found
+     * @return updated course or 400 response with error message if course cannot be
+     *         found
      */
     @Secured(Role.ADMIN)
     public CourseDTO updateCourse(Long id, CourseDTO dto) {
         return repository.findById(id)
-            .map(course -> {
-                course.setType(dto.getType());
-                course.setCode(dto.getCode());
-                course.setName(dto.getName());
-                course.setLevel(dto.getLevel());
-                course.setCreditHours(dto.getCreditHours());
-                return mapper.map(repository.save(course), CourseDTO.class);
-            })
-            .orElseThrow(() -> new CourseNotFoundException(id));
+                .map(course -> {
+                    course.setType(dto.getType());
+                    course.setCode(dto.getCode());
+                    course.setName(dto.getName());
+                    course.setDescription(dto.getDescription());
+                    course.setLevel(dto.getLevel());
+                    course.setCreditHours(dto.getCreditHours());
+                    return mapper.map(repository.save(course), CourseDTO.class);
+                })
+                .orElseThrow(() -> new CourseNotFoundException(id));
     }
 
     /**
      * Deletes a specific course
+     * 
      * @param id id of course to delete
      */
     @Secured(Role.ADMIN)

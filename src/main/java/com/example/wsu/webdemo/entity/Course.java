@@ -25,6 +25,7 @@ public class Course {
     private String type;
     private String code;
     private String name;
+    private String description;
     private CourseLevel level;
     private int creditHours;
 
