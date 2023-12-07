@@ -43,7 +43,7 @@ public class CourseControllerTest {
                 .contentType("application/json")
                 .header("role", Role.ADMIN)
                 .content(mapper.writeValueAsString(validDTO())))
-            .andExpect(status().isCreated());
+                .andExpect(status().isCreated());
     }
 
     @Test
@@ -53,15 +53,15 @@ public class CourseControllerTest {
 
         mockMvc.perform(get(BASE_URL + "/{id}", 1L)
                 .header("role", "USER"))
-            .andExpect(status().isOk())
-            .andExpect(responseBody().toContain(course, CourseDTO.class));
+                .andExpect(status().isOk())
+                .andExpect(responseBody().toContain(course, CourseDTO.class));
     }
 
     @Test
     public void getCourseThatDoesNotExist() throws Exception {
         when(courseService.getCourse(1L)).thenThrow(new CourseNotFoundException(1L));
         mockMvc.perform(get(BASE_URL + "/{id}", 1L).header("role", "USER"))
-            .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -70,8 +70,8 @@ public class CourseControllerTest {
         when(courseService.getAllCourses()).thenReturn(courseList);
 
         mockMvc.perform(get(BASE_URL).header("role", "USER"))
-            .andExpect(status().isOk())
-            .andExpect(responseBody().toContain(courseList, CourseDTO.class));
+                .andExpect(status().isOk())
+                .andExpect(responseBody().toContain(courseList, CourseDTO.class));
     }
 
     @Test
@@ -82,8 +82,8 @@ public class CourseControllerTest {
         mockMvc.perform(put(BASE_URL + "/{id}", 1L).header("role", "USER")
                 .contentType("application/json")
                 .content(mapper.writeValueAsString(validDTO())))
-            .andExpect(status().isOk())
-            .andExpect(responseBody().toContain(updatedCourse, CourseDTO.class));
+                .andExpect(status().isOk())
+                .andExpect(responseBody().toContain(updatedCourse, CourseDTO.class));
     }
 
     @Test
@@ -93,21 +93,23 @@ public class CourseControllerTest {
         mockMvc.perform(put(BASE_URL + "/{id}", 1L).header("role", "user")
                 .contentType("application/json")
                 .content(mapper.writeValueAsString(validDTO())))
-            .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound());
     }
 
     @Test
     public void deleteCourse() throws Exception {
         mockMvc.perform(delete(BASE_URL + "/{id}", 1L).header("role", "USER"))
-            .andExpect(status().isNoContent());
+                .andExpect(status().isNoContent());
     }
 
     private CourseDTO validDTO() {
         return CourseDTO.builder()
-            .type("CS")
-            .code("1000")
-            .name("Technology and Society")
-            .level(CourseLevel.UNDERGRADUATE)
-            .build();
+                .type("CS")
+                .code("1000")
+                .name("Technology and Society")
+                .description(
+                        "Examines and evaluates the consequences of technology on individuals, organizations and society to recognize its benefits, potential, and limitations. Explores current social, ethical, legal and philosophical topics to understand how the Digital Revolution impacts society. Integrated Writing course.")
+                .level(CourseLevel.UNDERGRADUATE)
+                .build();
     }
 }
