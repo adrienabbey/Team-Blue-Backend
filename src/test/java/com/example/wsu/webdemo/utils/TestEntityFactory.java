@@ -10,6 +10,7 @@ public class TestEntityFactory {
                 .type("CS")
                 .code("1000")
                 .name("Technology and Society")
+                .instructor("Dr. John Smith")
                 .description(
                         "Examines and evaluates the consequences of technology on individuals, organizations and society to recognize its benefits, potential, and limitations. Explores current social, ethical, legal and philosophical topics to understand how the Digital Revolution impacts society. Integrated Writing course.")
                 .level(CourseLevel.UNDERGRADUATE)
@@ -18,7 +19,7 @@ public class TestEntityFactory {
     }
 
     public static Course validCourse() {
-        return new Course(1L, "CS", "1000", "Technology and Society",
+        return new Course(1L, "CS", "1000", "Technology and Society", "Dr. John Smith",
                 "Examines and evaluates the consequences of technology on individuals, organizations and society to recognize its benefits, potential, and limitations. Explores current social, ethical, legal and philosophical topics to understand how the Digital Revolution impacts society. Integrated Writing course.",
                 CourseLevel.UNDERGRADUATE, 3);
     }

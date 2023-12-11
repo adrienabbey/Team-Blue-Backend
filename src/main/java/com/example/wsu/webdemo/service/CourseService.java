@@ -72,6 +72,7 @@ public class CourseService {
                     course.setType(dto.getType());
                     course.setCode(dto.getCode());
                     course.setName(dto.getName());
+                    course.setInstructor(dto.getInstructor());
                     course.setDescription(dto.getDescription());
                     course.setLevel(dto.getLevel());
                     course.setCreditHours(dto.getCreditHours());
